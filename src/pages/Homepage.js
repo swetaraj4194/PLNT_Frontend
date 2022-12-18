@@ -3,21 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { fetchAllProducts } from "../store/product/action";
 import { selectProducts } from "../store/product/selector";
-import { Button, Container, Card, Row } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 
 export default function Homepage() {
   const dispatch = useDispatch();
   const items = useSelector(selectProducts);
 
-  //pagination
+  //Pagination
   const [offset, setoffset] = useState(0);
 
+  //fetching product data
   useEffect(() => {
     if (items.length === 0) {
       dispatch(fetchAllProducts());
     }
   }, [dispatch]);
 
+  //function for pagination button
   const getNextProducts = () => {
     setoffset(offset + 8);
   };
@@ -66,6 +68,7 @@ export default function Homepage() {
             )
           );
         })}
+
         <div className="mt-4 d-flex" class="mx-auto">
           <Button
             className="m-2 web-color"

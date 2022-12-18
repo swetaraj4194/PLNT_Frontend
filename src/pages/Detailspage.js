@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchProductById, addCartProduct } from "../store/product/action";
 import { selectProductDetails } from "../store/product/selector";
-import { Container, Button, Card } from "react-bootstrap";
+import { Container, Button, Card, Row, Col } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 export default function Detailspage() {
@@ -29,24 +29,46 @@ export default function Detailspage() {
   return (
     <Container>
       <h1>Details</h1>
+      <Card>
+        <Row style={{ margin: "50px" }}>
+          <Col sm={7} style={{ width: "38rem" }} className="m-2">
+            <img
+              class="mcard-img-top"
+              style={{
+                maxWidth: "500px",
+                maxHeight: "350px",
+                backgroundSize: "cover",
+              }}
+              src={item?.image}
+              alt={" "}
+            />
+          </Col>
 
-      <Card key={item?.id}>
-        <h2>{item?.title}</h2>
-        <p>{item?.description}</p>
-        <img class="imageStyle" src={item?.image} alt={item?.id} />
-        <div>
-          <NavLink to={`/`}>
-            <div>
-              <Button>
-                <span>Visit to Homepage</span>
-              </Button>
-            </div>
-          </NavLink>{" "}
-        </div>
+          <Col sm={5}>
+            <Row xs={1} md={2} className="g-4" style={{ columnGap: "30px" }}>
+              <Card.Body>
+                <Card.Title>{item?.title}</Card.Title>
+                <Card.Text>{item?.description}</Card.Text>
+                <Card.Text>€{item?.price}</Card.Text>
+              </Card.Body>
 
-        <Button type="submit" onClick={addProduct}>
-          <span>Add to cart</span>
-        </Button>
+              <div style={{ marginLeft: "120px" }}>
+                <NavLink to={`/`}>
+                  <div>
+                    <Button>
+                      <span> Back to Homepage</span>
+                    </Button>
+                  </div>
+                </NavLink>{" "}
+              </div>
+              <div style={{ marginLeft: "120px" }}>
+                <Button type="submit" onClick={addProduct}>
+                  <span>Add to cart</span>
+                </Button>
+              </div>
+            </Row>
+          </Col>
+        </Row>
       </Card>
     </Container>
   );
