@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchProductById, addCartProduct } from "../store/product/action";
-import { selectProductDetails } from "../store/product/selector";
+import { selectProductDetails ,selectCartItemCount} from "../store/product/selector";
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
@@ -10,10 +10,14 @@ export default function Detailspage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const item = useSelector(selectProductDetails);
+  const cartItemsCount=useSelector(selectCartItemCount)
 
   useEffect(() => {
     dispatch(fetchProductById(id));
   }, [dispatch]);
+
+
+
 
   const addProduct = () => {
     return dispatch(
@@ -25,6 +29,8 @@ export default function Detailspage() {
       })
     );
   };
+
+  
 
   return (
     <Container>
@@ -62,7 +68,7 @@ export default function Detailspage() {
                 </NavLink>{" "}
               </div>
               <div style={{ marginLeft: "120px" }}>
-                <Button type="submit" onClick={addProduct}>
+                <Button type="submit" onClick={addProduct} >
                   <span>Add to cart</span>
                 </Button>
               </div>

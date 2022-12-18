@@ -6,6 +6,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 export default function Navbar() {
   const cartItemsCount = useSelector(selectCartItemCount);
+
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
       <a class="navbar-brand" href="/">

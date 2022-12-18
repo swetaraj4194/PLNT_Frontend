@@ -3,20 +3,13 @@ import { apiUrl } from "../../../src/config/constants";
 import axios from "axios";
 import { selectCartProduct } from "./selector";
 
-import {
-  appLoading,
-  appDoneLoading,
-  showMessageWithTimeout,
-  setMessage,
-} from "../appState/action";
-
 export const FETCH_PRODUCT_SUCCESS = "FETCH_PRODUCT_SUCCESS";
 export const PRODUCT_DETAILS_FETCHED = "PRODUCT_DETAILS_FETCHED";
-// export const ADD_PRODUCT_CART = "ADD_PRODUCT_CART";
 export const CART_DETAIL_ADD = "CART_DETAIL_ADD";
 export const CARTITEM_DELETE_SUCCESS = "CARTITEM_DELETE_SUCCESS";
 export const COUNT_CART_QUANTITY = "COUNT_CART_QUANTITY";
 
+//Fetch all products
 export const fetchProductSuccess = (products) => ({
   type: FETCH_PRODUCT_SUCCESS,
   payload: products,
@@ -36,7 +29,7 @@ export const fetchAllProducts = () => {
   };
 };
 
-//datails page
+// Fetch datails page
 const productDetailsFetched = (product) => ({
   type: PRODUCT_DETAILS_FETCHED,
   payload: product,
@@ -54,7 +47,7 @@ export const fetchProductById = (id) => {
   };
 };
 
-//cart product add
+//Add Cart Product
 const countCartQuantity = (product) => ({
   type: COUNT_CART_QUANTITY,
   payload: product,
@@ -79,7 +72,7 @@ export const addCartProduct = ({ title, price, description, image }) => {
   };
 };
 
-//get cart product
+//Fetch cart product
 const cartDetailsAdd = (product) => ({
   type: CART_DETAIL_ADD,
   payload: product,
@@ -87,8 +80,6 @@ const cartDetailsAdd = (product) => ({
 
 export const fetchCartProducts = () => {
   return async (dispatch, getState) => {
-    
-    //dispatch(appLoading());
     try {
       const response = await axios.get(`${apiUrl}/cart`);
 
@@ -101,7 +92,7 @@ export const fetchCartProducts = () => {
   };
 };
 
-//delete cart product
+//Delete cart product
 
 export const cartItemDeleteSuccess = (id) => ({
   type: CARTITEM_DELETE_SUCCESS,
@@ -116,7 +107,6 @@ export const deleteCartItem = (id) => {
       // console.log("Product deleted?", response);
 
       dispatch(cartItemDeleteSuccess(id));
-      // dispatch(appDoneLoading());
     } catch (e) {
       console.error(e);
     }
