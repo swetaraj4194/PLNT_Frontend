@@ -15,21 +15,25 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    //fetch all product
     case FETCH_PRODUCT_SUCCESS:
       return {
         ...state,
         allProducts: [...state.allProducts, ...action.payload],
       };
 
+    //fetch details page
     case PRODUCT_DETAILS_FETCHED:
       return { ...state, productDetails: { ...action.payload } };
 
+    //fetch cart data
     case CART_DETAIL_ADD:
       return {
         ...state,
         cartProduct: [...state.cartProduct, ...action.payload],
       };
 
+    // Remove cart item
     case CARTITEM_DELETE_SUCCESS:
       const id = action.payload;
       const newCartItem = state.cartProduct.filter(
@@ -41,6 +45,7 @@ export default function reducer(state = initialState, action) {
         cartQuantity: state.cartQuantity - 1,
       };
 
+    //count cart quantity
     case COUNT_CART_QUANTITY:
       return {
         ...state,
