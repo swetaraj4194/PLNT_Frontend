@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { fetchAllProducts } from "../store/product/action";
-import { selectProducts, selectCartItemCount } from "../store/product/selector";
-import { Button, Container, Card } from "react-bootstrap";
+import { selectProducts } from "../store/product/selector";
+import { Button, Container, Card, Row } from "react-bootstrap";
 
 export default function Homepage() {
   const dispatch = useDispatch();
   const items = useSelector(selectProducts);
-  const cartItems = useSelector(selectCartItemCount);
 
   //pagination
   const [offset, setoffset] = useState(0);
@@ -20,57 +19,71 @@ export default function Homepage() {
   }, [dispatch]);
 
   const getNextProducts = () => {
-    setoffset(offset + 4);
+    setoffset(offset + 8);
   };
 
   const getPreviousProducts = () => {
-    setoffset(offset - 4);
+    setoffset(offset - 8);
   };
 
   return (
     <Container>
       <h1>Products</h1>{" "}
-      <div>
-        <NavLink to={`/addcart`}>
-          <div>
-            <Button>
-              <span>Cart {cartItems}</span>
-            </Button>
-          </div>
-        </NavLink>{" "}
-      </div>
-      {items?.map((item, index) => {
-        return (
-          offset <= index &&
-          index <= offset + 3 && (
-            <Card key={item?.id}>
-              <h2>{item?.title}</h2>
-              <img className="imageStyle" src={item?.image} alt={item?.id} />
-              <p>{item?.price}</p>
+      <Row
+        xs={1}
+        md={2}
+        className=""
+        style={{ columnGap: "15px", rowGap: "15px" }}
+      >
+        {items?.map((item, index) => {
+          return (
+            offset <= index &&
+            index <= offset + 7 && (
+              <div class="card" style={{ width: "18rem" }} key={item?.id}>
+                <img
+                  class="mcard-img-top"
+                  style={{
+                    maxWidth: "400px",
+                    maxHeight: "250px",
+                    backgroundSize: "cover",
+                  }}
+                  src={item?.image}
+                  alt={" "}
+                />
+                <h2 className="h6 p-2 m-0 text-lowercase">{item?.title} </h2>
+                <p class="p-2 m-0">{item?.price}</p>
 
-              <div>
-                <NavLink to={`/${item.id}`}>
-                  <div>
-                    <Button>
-                      <span>Visit to Details Page</span>
-                    </Button>
-                  </div>
-                </NavLink>{" "}
+                <div>
+                  <NavLink to={`/${item.id}`}>
+                    <div>
+                      <Button>
+                        <span>Visit to Details Page</span>
+                      </Button>
+                    </div>
+                  </NavLink>{" "}
+                </div>
               </div>
-            </Card>
-          )
-        );
-      })}
-      <div>
-        <Button onClick={getPreviousProducts} disabled={offset === 0}>
-          Previous
-        </Button>
-      </div>
-      <div>
-        <Button onClick={getNextProducts} disabled={offset >= items.length - 3}>
-          Next
-        </Button>
-      </div>
+            )
+          );
+        })}
+        <div className="mt-4 d-flex" class="mx-auto">
+          <Button
+            className="m-2 web-color"
+            onClick={getPreviousProducts}
+            disabled={offset === 0}
+          >
+            Previous
+          </Button>
+
+          <Button
+            className="m-2 web-color"
+            onClick={getNextProducts}
+            disabled={offset >= items.length - 3}
+          >
+            Next
+          </Button>
+        </div>
+      </Row>
     </Container>
   );
 }
