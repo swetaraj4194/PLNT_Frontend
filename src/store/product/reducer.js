@@ -42,7 +42,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         cartProduct: newCartItem,
-        cartQuantity: state.cartQuantity - 1,
+        // cartQuantity: state.cartQuantity - 1,
       };
 
     //count cart quantity

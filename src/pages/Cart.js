@@ -23,7 +23,7 @@ export default function Cart() {
   return (
     <Container>
       <h1>Cart</h1>
-      <h2>Total Cart Item : {items.length}</h2>
+      <h2 style={{ color: "#FF0000" }}>Total Cart Item : {items.length}</h2>
 
       {items?.map((item) => {
         return (

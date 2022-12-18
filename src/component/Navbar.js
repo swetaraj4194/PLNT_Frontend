@@ -36,7 +36,7 @@ export default function Navbar() {
               <Badge color="primary">
                 <ShoppingCartIcon />{" "}
               </Badge>
-              <span className="countstyle">{cartItemsCount}</span>
+              <span className="countstyle">{cartItemsCount} Item added</span>
             </a>
           </li>
         </ul>
